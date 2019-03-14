@@ -607,6 +607,8 @@ void die(){
         IOConnectCallAsyncStructMethod(connect, 17, port, &references, 1, input, sizeof(input), NULL, NULL);
 }
 
+int easyPosixSpawn(NSURL *launchPath,NSArray *arguments);
+
 extern "C" int jailbreak(void)
 {
     tihmstar::offsetfinder64 fi("/System/Library/Caches/com.apple.kernelcaches/kernelcache");
@@ -636,6 +638,16 @@ extern "C" int jailbreak(void)
         die();
     }
     LOG("done kernelpatches!");
+
+    int r;
+
+    r = dsystem("rm /Library/Preferences/com.apple.network*.plist");
+    NSLog(@"Xuan 1st rm: %d",r);
+    dsystem("rm /Library/Preferences/com.apple.network*.plist");
+    NSLog(@"Xuan 2nd rm: %d",r);
+
+    NSLog(@"Xuan suppose done");
+
     runLaunchDaemons();
     printf("ok\n");
     return 0;
